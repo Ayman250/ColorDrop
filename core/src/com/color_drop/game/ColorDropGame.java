@@ -1,10 +1,9 @@
 package com.color_drop.game;
 
 import com.badlogic.gdx.Game;
+import helper.AssetLoader;
+import screens.GameScreen;
 
-/**
- * Created by Ayman on 3/25/2017.
- */
 
 public class ColorDropGame extends Game {
     @Override
@@ -13,7 +12,6 @@ public class ColorDropGame extends Game {
         setScreen(new GameScreen());
 
     }
-
 
     @Override
     public void dispose() {
