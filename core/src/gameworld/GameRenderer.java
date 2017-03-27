@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Rectangle;
 
 
 import gameobjects.Box;
+import gameobjects.Drop;
 
 public class GameRenderer {
     private int gameWidth, gameHeight;
@@ -63,7 +64,12 @@ public class GameRenderer {
     }
 
     public void drawDrops(){
-
+        for(Drop drop: world.getDrops()){
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            shapeRenderer.setColor(drop.getDropColor());
+            shapeRenderer.circle(drop.getX(), drop.getY(), drop.getRadius());
+            shapeRenderer.end();
+        }
     }
 
 
