@@ -25,8 +25,6 @@ public class GameRenderer {
         this.gameWidth = world.getGameWidth();
         this.gameHeight = world.getGameHeight();
 
-        background = new Rectangle(0, 0, gameWidth, gameHeight);
-
         cam = new OrthographicCamera();
         cam.setToOrtho(true, this.gameWidth, this.gameHeight);
 

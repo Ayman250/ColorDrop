@@ -29,11 +29,11 @@ public class GameWorld {
         this.gameWidth = gameWidth;
         this.gameHeight = gameHeight;
 
-        this.boxLength = 300;
+        this.boxLength = 150;
 
         //Generate Boxes
         boxes = new ArrayList<Box>();
-        boxes.add(new Box(210, 400, boxLength, Color.FOREST));
+        boxes.add(new Box(165, 400, boxLength, Color.FOREST));
         boxes.add(new Box(boxes.get(0).getX()+boxLength, 400, boxLength, Color.BLUE));
         boxes.add(new Box(boxes.get(1).getX()+boxLength, 400, boxLength, Color.YELLOW));
         boxes.add(new Box(boxes.get(2).getX()+boxLength, 400, boxLength, Color.PINK));
