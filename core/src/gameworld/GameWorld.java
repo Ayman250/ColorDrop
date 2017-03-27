@@ -29,7 +29,7 @@ public class GameWorld {
         this.gameWidth = gameWidth;
         this.gameHeight = gameHeight;
 
-        this.boxLength = 300;
+        this.boxLength = 150;
 
         //Generate Boxes
         boxes = new ArrayList<Box>();

@@ -34,6 +34,8 @@ public class GameRenderer {
         batch.setProjectionMatrix(cam.combined);
 
         shapeRenderer = new ShapeRenderer();
+        shapeRenderer.setProjectionMatrix(cam.combined);
+
     }
 
     public void render(float delta, float runTime){
@@ -49,7 +51,7 @@ public class GameRenderer {
     private void drawBackground(){
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(Color.DARK_GRAY);
-        shapeRenderer.rect(0, 0, gameHeight, gameWidth);
+        shapeRenderer.rect(0, 0, gameWidth, gameHeight);
         shapeRenderer.end();
     }
 
