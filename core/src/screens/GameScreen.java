@@ -8,6 +8,9 @@ import gameworld.GameWorld;
 
 
 public class GameScreen implements Screen{
+    private static final float MIN_FRAME_LENGTH = 1f/120f;
+    private float timeSinceLastRender;
+
     private GameWorld world;
     private GameRenderer renderer;
 
@@ -36,10 +39,17 @@ public class GameScreen implements Screen{
 
     @Override
     public void render(float delta) {
-        world.update(delta);
+        /*Only render if it's been 1/60 of a second since last render.
+        Cap FPS at 60
+        */
+        timeSinceLastRender += delta;
+//        if (timeSinceLastRender >= MIN_FRAME_LENGTH) {
+            world.update(delta);
+            runTime+= delta;
+            renderer.render(delta, runTime);
+            timeSinceLastRender = 0f;
+//        }
 
-        runTime+= delta;
-        renderer.render(delta, runTime);
     }
 
     @Override

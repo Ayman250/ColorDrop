@@ -31,8 +31,17 @@ public class Box {
     public float getY() {
         return y;
     }
+
     public Color getBoxColor(){
         return  boxColor;
+    }
+
+    public int getBoxLength(){
+        return boxLength;
+    }
+
+    public void setBoxColor(Color newColor){
+        this.boxColor = newColor;
     }
 
 }

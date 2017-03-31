@@ -30,4 +30,5 @@ public class ColorDrop extends ApplicationAdapter {
 		batch.dispose();
 		img.dispose();
 	}
+
 }

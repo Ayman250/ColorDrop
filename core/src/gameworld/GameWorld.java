@@ -10,9 +10,10 @@ import gameobjects.Drop;
 
 
 public class GameWorld {
+    private Scroller scroller;
 
     private int gameWidth, gameHeight;
-    private int boxLength, dropRadius, boxX, dropX, boxY, dropY;
+    private int boxLength, dropRadius, boxX, dropX, boxY, dropY, boxGap, score;
 
     private List<Box> boxes;
     private List<Drop> drops;
@@ -24,7 +25,9 @@ public class GameWorld {
     }
 
     public GameWorld(int gameWidth, int gameHeight) {
+        scroller = new Scroller(this    );
         currentState = GameState.READY;
+        this.score  = 0;
 
         this.gameWidth = gameWidth;
         this.gameHeight = gameHeight;
@@ -33,26 +36,29 @@ public class GameWorld {
         this.dropRadius = 40;
         //X location for the first box
         //X location for the first drop (midpoint of first box)
-        this.boxX = 165;
+        this.boxX = 125;
         this.dropX = boxX + boxLength/2;
-        this.boxY = 1220;
-        this.dropY = 1200;
+
+        this.boxY = 1350;
+        this.dropY = 200;
+
+        this.boxGap = 20;
 
         //Generate Boxes
         boxes = new ArrayList<Box>();
         boxes.add(new Box(boxX, boxY, boxLength, Color.TEAL));
-        boxes.add(new Box(boxes.get(0).getX()+boxLength, boxY, boxLength, Color.CORAL));
-        boxes.add(new Box(boxes.get(1).getX()+boxLength, boxY, boxLength, Color.OLIVE));
-        boxes.add(new Box(boxes.get(2).getX()+boxLength, boxY, boxLength, Color.PINK));
-        boxes.add(new Box(boxes.get(3).getX()+boxLength, boxY, boxLength, Color.SCARLET));
+        boxes.add(new Box(boxes.get(0).getX()+boxLength + boxGap, boxY, boxLength, Color.CORAL));
+        boxes.add(new Box(boxes.get(1).getX()+boxLength + boxGap, boxY, boxLength, Color.OLIVE));
+        boxes.add(new Box(boxes.get(2).getX()+boxLength + boxGap, boxY, boxLength, Color.PINK));
+        boxes.add(new Box(boxes.get(3).getX()+boxLength + boxGap, boxY, boxLength, Color.SCARLET));
 
         //Generate Drops
         drops = new ArrayList<Drop>();
         drops.add(new Drop(dropX, dropY, dropRadius, Color.TEAL));
-        drops.add(new Drop(drops.get(0).getX()+boxLength, dropY, dropRadius, Color.CORAL));
-        drops.add(new Drop(drops.get(1).getX()+boxLength, dropY, dropRadius, Color.OLIVE));
-        drops.add(new Drop(drops.get(2).getX()+boxLength, dropY, dropRadius, Color.PINK));
-        drops.add(new Drop(drops.get(3).getX()+boxLength, dropY, dropRadius, Color.SCARLET));
+        drops.add(new Drop(drops.get(0).getX()+boxLength + boxGap, dropY, dropRadius, Color.CORAL));
+        drops.add(new Drop(drops.get(1).getX()+boxLength + boxGap, dropY, dropRadius, Color.OLIVE));
+        drops.add(new Drop(drops.get(2).getX()+boxLength + boxGap, dropY, dropRadius, Color.WHITE));
+        drops.add(new Drop(drops.get(3).getX()+boxLength + boxGap, dropY, dropRadius, Color.SCARLET));
 
     }
 
@@ -61,11 +67,26 @@ public class GameWorld {
             case READY:
             case MENU:
             case RUNNING:
+                scroller.updateDrops(delta);
             case GAMEOVER:
             case HIGHSCORE:
             case PAUSED:
             case RESUMING:
         }
+    }
+
+    public void addPoints(int points){
+        score+=points;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void swapBoxes(Box box1, Box box2){
+        Color temp = box1.getBoxColor();
+        box1.setBoxColor(box2.getBoxColor());
+        box2.setBoxColor(temp);
     }
 
     public int getGameWidth() {
