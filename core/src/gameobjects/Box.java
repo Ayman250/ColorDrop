@@ -14,6 +14,7 @@ public class Box {
         this.x = x;
         this.y = y;
         this.boxColor = boxColor;
+
     }
 
     public float getLength() {
@@ -43,5 +44,14 @@ public class Box {
     public void setBoxColor(Color newColor){
         this.boxColor = newColor;
     }
+
+    public boolean isTouchUp(float x, float y){
+        return hitBox.contains(x, y);
+    }
+
+    public boolean isTouchDown(float x, float y){
+        return hitBox.contains(x, y);
+    }
+
 
 }

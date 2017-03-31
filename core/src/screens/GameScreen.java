@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 
 import gameworld.GameRenderer;
 import gameworld.GameWorld;
+import helper.InputHandler;
 
 
 public class GameScreen implements Screen{
@@ -13,7 +14,8 @@ public class GameScreen implements Screen{
 
     private GameWorld world;
     private GameRenderer renderer;
-
+    private InputHandler inputHandler
+;
     private int gameWidth, screenWidth;
     private int gameHeight, screenHeight;
     private float runTime;
@@ -26,10 +28,8 @@ public class GameScreen implements Screen{
         gameHeight = 1920;
 
         world = new GameWorld(gameWidth, gameHeight);
-
         renderer = new GameRenderer(world);
-
-
+        Gdx.input.setInputProcessor(new InputHandler(world, (float)gameWidth/screenWidth, (float)gameHeight/screenHeight));
     }
 
     @Override

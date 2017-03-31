@@ -56,8 +56,8 @@ public class GameWorld {
         drops = new ArrayList<Drop>();
         drops.add(new Drop(dropX, dropY, dropRadius, Color.TEAL));
         drops.add(new Drop(drops.get(0).getX()+boxLength + boxGap, dropY, dropRadius, Color.CORAL));
-        drops.add(new Drop(drops.get(1).getX()+boxLength + boxGap, dropY, dropRadius, Color.OLIVE));
-        drops.add(new Drop(drops.get(2).getX()+boxLength + boxGap, dropY, dropRadius, Color.WHITE));
+        drops.add(new Drop(drops.get(1).getX()+boxLength + boxGap, dropY, dropRadius, Color.PINK));
+        drops.add(new Drop(drops.get(2).getX()+boxLength + boxGap, dropY, dropRadius, Color.OLIVE));
         drops.add(new Drop(drops.get(3).getX()+boxLength + boxGap, dropY, dropRadius, Color.SCARLET));
 
     }
