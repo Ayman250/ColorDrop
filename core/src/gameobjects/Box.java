@@ -17,6 +17,14 @@ public class Box {
 
     }
 
+    public boolean isTouchUp(float x, float y){
+        return hitBox.contains(x, y);
+    }
+
+    public boolean isTouchDown(float x, float y){
+        return hitBox.contains(x, y);
+    }
+
     public float getLength() {
         return boxLength;
     }
@@ -45,13 +53,12 @@ public class Box {
         this.boxColor = newColor;
     }
 
-    public boolean isTouchUp(float x, float y){
-        return hitBox.contains(x, y);
+    public void setX(float newX){
+        this.x = newX;
     }
 
-    public boolean isTouchDown(float x, float y){
-        return hitBox.contains(x, y);
+    public void setY(float newY){
+        this.y = newY;
     }
-
 
 }

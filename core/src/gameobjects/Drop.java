@@ -43,4 +43,8 @@ public class Drop {
         this.y = y;
     }
 
+    public void setDropColor(Color newColor){
+        this.dropColor = newColor;
+    }
+
 }

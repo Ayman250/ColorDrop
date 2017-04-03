@@ -1,11 +1,14 @@
 package gameworld;
 
 
+import java.util.Collection;
+import java.util.Random;
+
 import gameobjects.Drop;
 import gameworld.GameWorld;
 
 public class Scroller {
-    private static int SCROLL_SPEED = 1000;
+    private static int SCROLL_SPEED = 250;
     private GameWorld world;
 
     public Scroller(GameWorld world){
@@ -31,6 +34,7 @@ public class Scroller {
 
     private void resetDrops(){
         for(Drop drop : world.getDrops()){
+            world.resetDropColors();
             drop.resetY();
         }
     }

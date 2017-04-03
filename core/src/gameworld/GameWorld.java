@@ -3,7 +3,10 @@ package gameworld;
 import com.badlogic.gdx.graphics.Color;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import gameobjects.Box;
 import gameobjects.Drop;
@@ -19,6 +22,9 @@ public class GameWorld {
     private List<Drop> drops;
 
     private GameState currentState;
+    private Random r;
+
+    private List<Color> colors;
 
     public enum GameState {
         MENU, READY, RUNNING, GAMEOVER, HIGHSCORE, PAUSED, RESUMING;
@@ -27,6 +33,7 @@ public class GameWorld {
     public GameWorld(int gameWidth, int gameHeight) {
         scroller = new Scroller(this    );
         currentState = GameState.READY;
+        r = new Random();
         this.score  = 0;
 
         this.gameWidth = gameWidth;
@@ -39,26 +46,34 @@ public class GameWorld {
         this.boxX = 125;
         this.dropX = boxX + boxLength/2;
 
-        this.boxY = 1350;
-        this.dropY = 200;
+        this.boxY = 1550;
+        this.dropY = 150;
 
         this.boxGap = 20;
 
+        colors = new ArrayList<Color>();
+
+        colors.add(Color.TEAL);
+        colors.add(Color.CORAL);
+        colors.add(Color.OLIVE);
+        colors.add(Color.PINK);
+        colors.add(Color.SCARLET);
+
         //Generate Boxes
         boxes = new ArrayList<Box>();
-        boxes.add(new Box(boxX, boxY, boxLength, Color.TEAL));
-        boxes.add(new Box(boxes.get(0).getX()+boxLength + boxGap, boxY, boxLength, Color.CORAL));
-        boxes.add(new Box(boxes.get(1).getX()+boxLength + boxGap, boxY, boxLength, Color.OLIVE));
-        boxes.add(new Box(boxes.get(2).getX()+boxLength + boxGap, boxY, boxLength, Color.PINK));
-        boxes.add(new Box(boxes.get(3).getX()+boxLength + boxGap, boxY, boxLength, Color.SCARLET));
+        boxes.add(new Box(boxX, boxY, boxLength, colors.get(0)));
+        boxes.add(new Box(boxes.get(0).getX()+boxLength + boxGap, boxY, boxLength, colors.get(1)));
+        boxes.add(new Box(boxes.get(1).getX()+boxLength + boxGap, boxY, boxLength, colors.get(2)));
+        boxes.add(new Box(boxes.get(2).getX()+boxLength + boxGap, boxY, boxLength, colors.get(3)));
+        boxes.add(new Box(boxes.get(3).getX()+boxLength + boxGap, boxY, boxLength, colors.get(4)));
 
         //Generate Drops
         drops = new ArrayList<Drop>();
-        drops.add(new Drop(dropX, dropY, dropRadius, Color.TEAL));
-        drops.add(new Drop(drops.get(0).getX()+boxLength + boxGap, dropY, dropRadius, Color.CORAL));
-        drops.add(new Drop(drops.get(1).getX()+boxLength + boxGap, dropY, dropRadius, Color.PINK));
-        drops.add(new Drop(drops.get(2).getX()+boxLength + boxGap, dropY, dropRadius, Color.OLIVE));
-        drops.add(new Drop(drops.get(3).getX()+boxLength + boxGap, dropY, dropRadius, Color.SCARLET));
+        drops.add(new Drop(dropX, dropY, dropRadius, colors.get(0)));
+        drops.add(new Drop(drops.get(0).getX()+boxLength + boxGap, dropY, dropRadius, colors.get(1)));
+        drops.add(new Drop(drops.get(1).getX()+boxLength + boxGap, dropY, dropRadius, colors.get(2)));
+        drops.add(new Drop(drops.get(2).getX()+boxLength + boxGap, dropY, dropRadius, colors.get(3)));
+        drops.add(new Drop(drops.get(3).getX()+boxLength + boxGap, dropY, dropRadius, colors.get(4)));
 
     }
 
@@ -77,6 +92,13 @@ public class GameWorld {
 
     public void addPoints(int points){
         score+=points;
+    }
+
+    public void resetDropColors(){
+        Collections.shuffle(colors);
+        for(int i = 0; i< colors.size(); i ++){
+            drops.get(i).setDropColor(colors.get(i));
+        }
     }
 
     public int getScore() {
@@ -103,4 +125,7 @@ public class GameWorld {
 
     public List<Drop> getDrops() { return drops; }
 
+    public List<Color> getColors(){
+        return colors;
+    }
 }

@@ -58,8 +58,8 @@ public class GameRenderer {
 
         drawBackground();
         drawScore();
-        drawBoxes();
         drawDrops();
+        drawBoxes();
     }
 
     private void drawBackground(){
@@ -71,7 +71,7 @@ public class GameRenderer {
 
     private void drawScore(){
         batch.begin();
-        font12.draw(batch, String.valueOf(world.getScore()), 400,100);
+        font12.draw(batch, String.valueOf(world.getScore()), 500,100);
         batch.end();
 //        generator.dispose(); // don't forget to dispose to avoid memory leaks!
     }
