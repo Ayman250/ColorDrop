@@ -43,7 +43,6 @@ public class InputHandler implements InputProcessor{
         for(Box box:world.getBoxes()){
             if(box.isTouchUp(screenX * scaleX, screenY * scaleY)) {
                 System.out.println("Box Pressed");
-                if (pressedBox == box) break;
                 if (pressedBox == null){
                     pressedBox = box;
                     pressedBox.setY(pressedBox.getY() - 20);

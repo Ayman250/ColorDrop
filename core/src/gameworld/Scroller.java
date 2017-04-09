@@ -53,4 +53,8 @@ public class Scroller {
         }
         return true;
     }
+
+    public void resetScrollSpeed(){
+        scroll_speed = 250;
+    }
 }

@@ -16,7 +16,7 @@ public class GameWorld {
     private Scroller scroller;
 
     private int gameWidth, gameHeight;
-    private int boxLength, dropRadius, boxX, dropX, boxY, dropY, boxGap, score;
+    private int boxLength, dropRadius, boxX, dropX, boxY, dropY, boxGap, score, level;
 
     private List<Box> boxes;
     private List<Drop> drops;
@@ -35,6 +35,7 @@ public class GameWorld {
         currentState = GameState.READY;
         r = new Random();
         this.score  = 0;
+        this.level = 1;
 
         this.gameWidth = gameWidth;
         this.gameHeight = gameHeight;
@@ -92,6 +93,9 @@ public class GameWorld {
 
     public void addPoints(int points){
         score+=points;
+        if(score % 10 == 0){
+            nextLevel();
+        }
     }
 
     public void resetDropColors(){
@@ -101,14 +105,55 @@ public class GameWorld {
         }
     }
 
-    public int getScore() {
-        return score;
-    }
+
 
     public void swapBoxes(Box box1, Box box2){
         Color temp = box1.getBoxColor();
         box1.setBoxColor(box2.getBoxColor());
         box2.setBoxColor(temp);
+    }
+
+    public void nextLevel(){
+        level++;
+        switch(level){
+            case 2:
+                scroller.resetScrollSpeed();
+                setNewColors(0f, 0f, 1f);
+                break;
+            case 3:
+                setNewColors(0f, 0f, .75f);
+                //Do level 3 stuff
+                break;
+            case 4:
+                setNewColors(0f, 0f, .50f);
+                //Do level 4 stuff
+                break;
+            case 5:
+                setNewColors(0f, 0f, .25f);
+                //Do level 5 stuff
+            case 6:
+                setNewColors(0f, .0f, .325f);
+                //Do level 6 stuff
+                break;
+            default:
+                break;
+
+        }
+    }
+
+    public void setNewColors(float base, float min, float max){
+        int i = 0;
+        for(Color col : colors){
+            col.set(base + r.nextFloat()*(max - min) + min, base+r.nextFloat()*(max - min) + min, base+r.nextFloat()*(max - min) + min, 1);
+            System.out.println(col.toString());
+            boxes.get(i).setBoxColor(col);
+            drops.get(i).setDropColor(col);
+            i++;
+        }
+    }
+
+    public int getScore() {
+        return score;
     }
 
     public int getGameWidth() {

@@ -24,7 +24,7 @@ public class GameRenderer {
     private Rectangle background;
     private FreeTypeFontGenerator generator;
     private FreeTypeFontGenerator.FreeTypeFontParameter parameter;
-    private BitmapFont font12;
+    private BitmapFont font36;
 
     public GameRenderer(GameWorld world){
         this.world = world;
@@ -45,9 +45,9 @@ public class GameRenderer {
         parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         //Flip
         parameter.flip = true;
-        parameter.size = 50;
-        font12 = generator.generateFont(parameter); // font size 12 pixels
-        font12.setColor(Color.WHITE);
+        parameter.size = 128;
+        font36 = generator.generateFont(parameter); // font size 12 pixels
+        font36.setColor(new Color(0.5f, 0.5f, 0.5f, 0.6f));
 
     }
 
@@ -64,14 +64,14 @@ public class GameRenderer {
 
     private void drawBackground(){
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(Color.DARK_GRAY);
+        shapeRenderer.setColor(Color.WHITE);
         shapeRenderer.rect(0, 0, gameWidth, gameHeight);
         shapeRenderer.end();
     }
 
     private void drawScore(){
         batch.begin();
-        font12.draw(batch, String.valueOf(world.getScore()), 500,100);
+        font36.draw(batch, String.valueOf(world.getScore()), 500,100);
         batch.end();
 //        generator.dispose(); // don't forget to dispose to avoid memory leaks!
     }
@@ -79,10 +79,10 @@ public class GameRenderer {
     private void drawBoxes(){
         for(Box box : world.getBoxes()){
             shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-            shapeRenderer.setColor(Color.WHITE);
-            shapeRenderer.rect(box.getX(), box.getY(), box.getLength(), box.getLength());
+//            shapeRenderer.setColor(Color.WHITE);
+//            shapeRenderer.rect(box.getX(), box.getY(), box.getLength(), box.getLength());
             shapeRenderer.setColor(box.getBoxColor());
-            shapeRenderer.rect(box.getX()+5, box.getY()+5, box.getLength()-10, box.getLength()-10);
+            shapeRenderer.rect(box.getX(), box.getY(), box.getLength(), box.getLength());
             shapeRenderer.end();
         }
     }
@@ -94,6 +94,7 @@ public class GameRenderer {
 
         for(Drop drop: world.getDrops()){
             shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            shapeRenderer.setColor(drop.getDropColor());
 
             //Draw outside circles to make it smoother
             float a = 1;
@@ -102,16 +103,15 @@ public class GameRenderer {
 
             for(int i=0; i<3; i++) {
                 a *= alphaMultiplier;
-                shapeRenderer.setColor(255, 255, 255, a);
+//                shapeRenderer.setColor(255, 255, 255, a);
                 shapeRenderer.circle(drop.getX(), drop.getY(), drop.getRadius() + 8 + i*radiusStep);
 
             }
 
-            shapeRenderer.setColor(Color.WHITE);
-            shapeRenderer.circle(drop.getX(), drop.getY(), drop.getRadius()+8);
-            shapeRenderer.end();
-            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-            shapeRenderer.setColor(drop.getDropColor());
+//            shapeRenderer.setColor(Color.WHITE);
+//            shapeRenderer.circle(drop.getX(), drop.getY(), drop.getRadius()+8);
+//            shapeRenderer.end();
+//            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
             shapeRenderer.circle(drop.getX(), drop.getY(), drop.getRadius());
             shapeRenderer.end();
         }
@@ -120,7 +120,7 @@ public class GameRenderer {
 
     public void dispose(){
         generator.dispose();
-        font12.dispose();
+        font36.dispose();
     }
 
 }
