@@ -9,6 +9,8 @@ public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.samples = 3;
+		config.height = 576;
+		config.width = 324;
 		new LwjglApplication(new ColorDropGame(), config);
 	}
 }

@@ -8,24 +8,28 @@ import gameobjects.Drop;
 import gameworld.GameWorld;
 
 public class Scroller {
+    private static float INIT_SPEED = 250;
     private float scroll_speed;
     private GameWorld world;
-    private float speedMult;
+    private float acceleration;
 
     public Scroller(GameWorld world){
         this.world = world;
-        scroll_speed=250;
-        speedMult = 1;
+        scroll_speed= INIT_SPEED;
+        acceleration = 0f;
     }
 
     public void update(float delta){
         updateDrops(delta);
     }
 
-    //Scroll Drops & Shit
+    /*
+    Scroll drops and shit
+    */
     public void updateDrops(float delta){
+        scroll_speed *= (1 + delta * acceleration);
         for(Drop drop : world.getDrops()){
-            drop.setY(drop.getY()+delta*scroll_speed);
+            drop.setY(drop.getY()+delta*scroll_speed) ;
         }
         if(world.getDrops().get(1).getY() >= world.getBoxes().get(1).getY()){
             if(correctBoxes()) {
@@ -40,8 +44,10 @@ public class Scroller {
             world.resetDropColors();
             drop.resetY();
         }
-        //After every point scored increase dropspeed
-        scroll_speed*=speedMult;
+        /*
+        Reset drops to initial speed.
+        */
+        scroll_speed = INIT_SPEED;
     }
 
     private boolean correctBoxes(){

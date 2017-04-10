@@ -12,5 +12,6 @@ public class AndroidLauncher extends AndroidApplication {
 		super.onCreate(savedInstanceState);
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 		initialize(new ColorDropGame(), config);
+		config.numSamples = 3;
 	}
 }
