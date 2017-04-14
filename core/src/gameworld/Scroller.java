@@ -34,8 +34,12 @@ public class Scroller {
         if(world.getDrops().get(1).getY() >= world.getBoxes().get(1).getY()){
             if(correctBoxes()) {
                 world.addPoints(1);
+                resetDrops();
             }
-            resetDrops();
+            else {
+                resetDrops();
+                world.gameOver();
+            }
         }
     }
 

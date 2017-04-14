@@ -39,20 +39,24 @@ public class InputHandler implements InputProcessor{
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        System.out.println(screenX * scaleX + " " + screenY * scaleY);
-        for(Box box:world.getBoxes()){
-            if(box.isTouchUp(screenX * scaleX, screenY * scaleY)) {
-                System.out.println("Box Pressed");
-                if (pressedBox == null){
-                    pressedBox = box;
-                    pressedBox.setY(pressedBox.getY() - 20);
-                }
-                else{
-                    world.swapBoxes(pressedBox, box);
-                    pressedBox.setY(pressedBox.getY() + 20);
-                    pressedBox = null;
+        switch (world.getCurrentState()) {
+            case READY: world.newGame();
+            case RUNNING:
+                for (Box box : world.getBoxes()) {
+                if (box.isTouchUp(screenX * scaleX, screenY * scaleY)) {
+                    if (pressedBox == null) {
+                        pressedBox = box;
+                        pressedBox.setY(pressedBox.getY() - 20);
+                    } else {
+                        world.swapBoxes(pressedBox, box);
+                        pressedBox.setY(pressedBox.getY() + 20);
+                        pressedBox = null;
+                    }
                 }
             }
+            break;
+            case GAMEOVER:
+                world.newGame();
         }
         return false;
     }

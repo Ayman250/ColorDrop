@@ -81,6 +81,7 @@ public class GameWorld {
     public void update(float delta){
         switch (currentState){
             case READY:
+                break;
             case MENU:
             case RUNNING:
                 scroller.updateDrops(delta);
@@ -93,7 +94,7 @@ public class GameWorld {
 
     public void addPoints(int points){
         score+=points;
-        if(score % 10 == 0){
+        if(score % 1 /*10*/ == 0){
             nextLevel();
         }
     }
@@ -136,6 +137,7 @@ public class GameWorld {
                 //Do level 6 stuff
                 break;
             default:
+                setNewColors(0f, .0f, .325f);
                 break;
 
         }
@@ -150,6 +152,36 @@ public class GameWorld {
             drops.get(i).setDropColor(col);
             i++;
         }
+    }
+
+    public void gameOver(){
+        currentState = GameState.GAMEOVER;
+    }
+
+    public void newGame(){
+        this.score  = 0;
+        this.level = 1;
+//
+//        colors.set(0, Color.TEAL);
+//        colors.set(1, Color.CORAL);
+//        colors.set(2, Color.OLIVE);
+//        colors.set(3, Color.PINK);
+//        colors.set(4, Color.SCARLET);
+
+        colors = new ArrayList<Color>();
+
+        colors.add(Color.TEAL);
+        colors.add(Color.CORAL);
+        colors.add(Color.OLIVE);
+        colors.add(Color.PINK);
+        colors.add(Color.SCARLET);
+
+        for(int i = 0; i<boxes.size(); i++){
+            boxes.get(i).setBoxColor(colors.get(i));
+            drops.get(i).setDropColor(colors.get(i));
+        }
+
+        currentState = GameState.RUNNING;
     }
 
     public int getScore() {
@@ -172,5 +204,9 @@ public class GameWorld {
 
     public List<Color> getColors(){
         return colors;
+    }
+
+    public GameState getCurrentState(){
+        return currentState;
     }
 }

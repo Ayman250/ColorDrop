@@ -39,11 +39,14 @@ public class GameRenderer {
 
         shapeRenderer = new ShapeRenderer();
         shapeRenderer.setProjectionMatrix(cam.combined);
-
-        //Font
+        /*
+        Font
+        */
         generator = new FreeTypeFontGenerator(Gdx.files.internal("Roboto-Bold.ttf"));
         parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        //Flip
+        /*
+        Flip
+        */
         parameter.flip = true;
         parameter.size = 128;
         font36 = generator.generateFont(parameter); // font size 12 pixels
@@ -55,11 +58,48 @@ public class GameRenderer {
         //Clears buffer for fresh render
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        switch(world.getCurrentState()){
+            case READY:
+                renderReady();
+                break;
+            case RUNNING:
+                renderRunning();
+                break;
+            case GAMEOVER:
+                renderGameOver();
+                break;
+            default:
+                renderRunning();
+        }
 
+    }
+
+    private void renderReady(){
+        drawBackground();
+        drawDrops();
+        drawBoxes();
+        batch.begin();
+        font36.draw(batch, "Press To Start!", 100,500);
+        batch.end();
+
+
+    }
+
+    private void renderRunning(){
         drawBackground();
         drawScore();
         drawDrops();
         drawBoxes();
+    }
+
+    private void renderGameOver(){
+        drawBackground();
+        drawScore();
+        drawBoxes();
+        drawGameOverBox();
+        batch.begin();
+        font36.draw(batch, "Press To Restart!", 60,500);
+        batch.end();
     }
 
     private void drawBackground(){
@@ -73,21 +113,18 @@ public class GameRenderer {
         batch.begin();
         font36.draw(batch, String.valueOf(world.getScore()), 500,100);
         batch.end();
-//        generator.dispose(); // don't forget to dispose to avoid memory leaks!
     }
 
     private void drawBoxes(){
         for(Box box : world.getBoxes()){
             shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-//            shapeRenderer.setColor(Color.WHITE);
-//            shapeRenderer.rect(box.getX(), box.getY(), box.getLength(), box.getLength());
             shapeRenderer.setColor(box.getBoxColor());
             shapeRenderer.rect(box.getX(), box.getY(), box.getLength(), box.getLength());
             shapeRenderer.end();
         }
     }
 
-    public void drawDrops(){
+    private void drawDrops(){
         Gdx.gl.glEnable(GL20.GL_BLEND);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 
@@ -103,20 +140,23 @@ public class GameRenderer {
 
             for(int i=0; i<3; i++) {
                 a *= alphaMultiplier;
-//                shapeRenderer.setColor(255, 255, 255, a);
                 shapeRenderer.circle(drop.getX(), drop.getY(), drop.getRadius() + 8 + i*radiusStep);
 
             }
-
-//            shapeRenderer.setColor(Color.WHITE);
-//            shapeRenderer.circle(drop.getX(), drop.getY(), drop.getRadius()+8);
-//            shapeRenderer.end();
-//            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
             shapeRenderer.circle(drop.getX(), drop.getY(), drop.getRadius());
             shapeRenderer.end();
         }
 
     }
+
+    private void drawGameOverBox(){
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        shapeRenderer.setColor(new Color(.5f, .5f, .5f, 0.5f));
+        Gdx.gl.glEnable(GL20.GL_BLEND);
+        shapeRenderer.rect(0, 0, gameWidth, gameHeight);
+        shapeRenderer.end();
+    }
+
 
     public void dispose(){
         generator.dispose();
