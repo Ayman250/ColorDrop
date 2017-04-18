@@ -8,6 +8,7 @@ import gameworld.GameWorld;
 public class InputHandler implements InputProcessor{
     private Box pressedBox;
     private GameWorld world;
+    private AssetLoader assetLoader;
     private float scaleX, scaleY;
 
     public InputHandler(GameWorld world, float scaleFactorX, float scaleFactorY){
@@ -15,6 +16,7 @@ public class InputHandler implements InputProcessor{
         this.world = world;
         this.scaleX = scaleFactorX;
         this.scaleY = scaleFactorY;
+        assetLoader.load();
     }
 
     @Override
@@ -44,6 +46,7 @@ public class InputHandler implements InputProcessor{
             case RUNNING:
                 for (Box box : world.getBoxes()) {
                 if (box.isTouchUp(screenX * scaleX, screenY * scaleY)) {
+                    assetLoader.clickBox.play();
                     if (pressedBox == null) {
                         pressedBox = box;
                         pressedBox.setY(pressedBox.getY() - 20);

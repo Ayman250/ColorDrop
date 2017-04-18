@@ -10,9 +10,11 @@ import java.util.Random;
 
 import gameobjects.Box;
 import gameobjects.Drop;
+import helper.AssetLoader;
 
 
 public class GameWorld {
+    private AssetLoader assetLoader;
     private Scroller scroller;
 
     private int gameWidth, gameHeight;
@@ -33,6 +35,7 @@ public class GameWorld {
     public GameWorld(int gameWidth, int gameHeight) {
         scroller = new Scroller(this    );
         currentState = GameState.READY;
+        assetLoader.load();
         r = new Random();
         this.score  = 0;
         this.level = 1;
@@ -97,6 +100,7 @@ public class GameWorld {
         if(score % 1 /*10*/ == 0){
             nextLevel();
         }
+        assetLoader.scorePoint.play();
     }
 
     public void resetDropColors(){
@@ -105,8 +109,6 @@ public class GameWorld {
             drops.get(i).setDropColor(colors.get(i));
         }
     }
-
-
 
     public void swapBoxes(Box box1, Box box2){
         Color temp = box1.getBoxColor();
@@ -144,12 +146,10 @@ public class GameWorld {
     }
 
     public void setNewColors(float base, float min, float max){
-        int i = 0;
-        for(Color col : colors){
-            col.set(base + r.nextFloat()*(max - min) + min, base+r.nextFloat()*(max - min) + min, base+r.nextFloat()*(max - min) + min, 1);
-            System.out.println(col.toString());
-            boxes.get(i).setBoxColor(col);
-            drops.get(i).setDropColor(col);
+        for(int i = 0; i<colors.size(); i++){
+            colors.set(i, new Color(base + r.nextFloat()*(max - min) + min, base+r.nextFloat()*(max - min) + min, base+r.nextFloat()*(max - min) + min, 1));
+            boxes.get(i).setBoxColor(colors.get(i));
+            drops.get(i).setDropColor(colors.get(i));
             i++;
         }
     }
@@ -161,20 +161,12 @@ public class GameWorld {
     public void newGame(){
         this.score  = 0;
         this.level = 1;
-//
-//        colors.set(0, Color.TEAL);
-//        colors.set(1, Color.CORAL);
-//        colors.set(2, Color.OLIVE);
-//        colors.set(3, Color.PINK);
-//        colors.set(4, Color.SCARLET);
 
-        colors = new ArrayList<Color>();
-
-        colors.add(Color.TEAL);
-        colors.add(Color.CORAL);
-        colors.add(Color.OLIVE);
-        colors.add(Color.PINK);
-        colors.add(Color.SCARLET);
+        colors.set(0, Color.TEAL);
+        colors.set(1, Color.CORAL);
+        colors.set(2, Color.OLIVE);
+        colors.set(3, Color.PINK);
+        colors.set(4, Color.SCARLET);
 
         for(int i = 0; i<boxes.size(); i++){
             boxes.get(i).setBoxColor(colors.get(i));
