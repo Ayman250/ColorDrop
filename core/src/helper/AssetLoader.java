@@ -11,12 +11,12 @@ public class AssetLoader {
     public static Sound clickBox, scorePoint;
 
     public static void load(){
-        clickBox = Gdx.audio.newSound(Gdx.files.internal("click.mp3"));
-        scorePoint = Gdx.audio.newSound(Gdx.files.internal("score.mp3"));
+//        clickBox = Gdx.audio.newSound(Gdx.files.internal("click.mp3"));
+//        scorePoint = Gdx.audio.newSound(Gdx.files.internal("score.mp3"));
     }
 
     public static void dispose(){
-        clickBox.dispose();
-        scorePoint.dispose();
+//        clickBox.dispose();
+//        scorePoint.dispose();
     }
 }

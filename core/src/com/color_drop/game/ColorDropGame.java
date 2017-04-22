@@ -8,7 +8,7 @@ import screens.GameScreen;
 public class ColorDropGame extends Game {
     @Override
     public void create() {
-        AssetLoader.load();
+//        AssetLoader.load();
         setScreen(new GameScreen());
 
     }

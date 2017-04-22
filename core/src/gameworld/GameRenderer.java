@@ -24,7 +24,7 @@ public class GameRenderer {
     private Rectangle background;
     private FreeTypeFontGenerator generator;
     private FreeTypeFontGenerator.FreeTypeFontParameter parameter;
-    private BitmapFont font36;
+    private BitmapFont fontNum, fontScoreLabel;
 
     public GameRenderer(GameWorld world){
         this.world = world;
@@ -49,8 +49,11 @@ public class GameRenderer {
         */
         parameter.flip = true;
         parameter.size = 128;
-        font36 = generator.generateFont(parameter); // font size 12 pixels
-        font36.setColor(new Color(0.5f, 0.5f, 0.5f, 0.6f));
+        fontNum = generator.generateFont(parameter); // font size 128 pixels
+        fontNum.setColor(new Color(0.5f, 0.5f, 0.5f, 0.6f));
+        parameter.size = 96;
+        fontScoreLabel = generator.generateFont(parameter);
+        fontScoreLabel.setColor(new Color(0.5f, 0.5f, 0.5f, 0.6f));
 
     }
 
@@ -79,7 +82,7 @@ public class GameRenderer {
         drawDrops();
         drawBoxes();
         batch.begin();
-        font36.draw(batch, "Press To Start!", 100,500);
+        fontNum.draw(batch, "Press To Start!", 100,500);
         batch.end();
 
 
@@ -98,7 +101,7 @@ public class GameRenderer {
         drawBoxes();
         drawGameOverBox();
         batch.begin();
-        font36.draw(batch, "Press To Restart!", 60,500);
+        fontNum.draw(batch, "Press To Restart!", 60,500);
         batch.end();
     }
 
@@ -111,7 +114,10 @@ public class GameRenderer {
 
     private void drawScore(){
         batch.begin();
-        font36.draw(batch, String.valueOf(world.getScore()), 500,100);
+        fontScoreLabel.draw(batch, "High Score", 100,100);
+        fontScoreLabel.draw(batch, "Score", 700,100);
+        fontNum.draw(batch, String.valueOf(world.getScore()), 200,275);
+        fontNum.draw(batch, String.valueOf(world.getScore()), 800,275);
         batch.end();
     }
 
@@ -160,7 +166,8 @@ public class GameRenderer {
 
     public void dispose(){
         generator.dispose();
-        font36.dispose();
+        fontNum.dispose();
+        fontScoreLabel.dispose();
     }
 
 }

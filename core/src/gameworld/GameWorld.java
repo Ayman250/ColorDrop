@@ -100,7 +100,7 @@ public class GameWorld {
         if(score % 1 /*10*/ == 0){
             nextLevel();
         }
-        assetLoader.scorePoint.play();
+//        assetLoader.scorePoint.play();
     }
 
     public void resetDropColors(){
