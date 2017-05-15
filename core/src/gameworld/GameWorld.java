@@ -45,8 +45,9 @@ public class GameWorld {
 
         this.boxLength = 150;
         this.dropRadius = 40;
-        //X location for the first box
-        //X location for the first drop (midpoint of first box)
+        /*X location for the first box
+          X location for the first drop (midpoint of first box)
+        */
         this.boxX = 125;
         this.dropX = boxX + boxLength/2;
 
@@ -100,7 +101,7 @@ public class GameWorld {
         if(score % 1 /*10*/ == 0){
             nextLevel();
         }
-//        assetLoader.scorePoint.play();
+        assetLoader.scorePoint.play();
     }
 
     public void resetDropColors(){
