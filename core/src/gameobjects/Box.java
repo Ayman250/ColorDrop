@@ -15,6 +15,7 @@ public class Box {
         hitBox = new Rectangle(x,y, boxLength, boxLength);
         this.x = x;
         this.y = y;
+        
         this.boxColor = boxColor;
     }
 
